@@ -1,0 +1,23 @@
+---
+- name: Install Node.js and npm
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+
+    - name: Install npm
+      apt:
+        name: npm
+        state: present
+
+    - name: Check Node version
+      command: node -v
+      register: node_version
+
+    - debug:
+        var: node_version.stdout
